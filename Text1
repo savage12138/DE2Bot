@@ -1,0 +1,50 @@
+CHECKWALL:
+	LOADI    0
+	STORE    TEMPCNT
+	IN       DIST1
+	SUB      MAXVALUE
+	JZERO    NEXT1
+	LOAD     TEMPCNT
+	ADDI     1
+	STORE    TEMPCNT
+NEXT1:
+	IN       DIST2
+	SUB      MAXVALUE
+	JZERO	 NEXT2
+	LOAD     TEMPCNT
+	ADDI     1
+	STORE    TEMPCNT
+NEXT2:
+	IN       DIST3
+	SUB      MAXVALUE
+	JZERO	 NEXT3
+	LOAD     TEMPCNT
+	ADDI     1
+	STORE    TEMPCNT
+NEXT3:
+	IN       DIST4
+	SUB      MAXVALUE
+	JZERO	 NEXT4
+	LOAD     TEMPCNT
+	ADDI     1
+	STORE    TEMPCNT
+NEXT4:
+	LOAD     TEMPCNT
+	ADDI     -4
+	JNEG     State35
+	
+	CALL     TURN180
+	JUMP     End_Sonar_Int
+
+	
+	TURN180:
+; Reset absolute angle odometry to 0
+	LOAD	 Zero
+	OUT	 THETA
+; Set the angle to turn as 90
+	ADDI	 180
+	STORE	 Angle
+; Turn until desired angle met
+	CALL	 KeepTurning
+; Set next state to be state 4
+	RETURN
